@@ -32,7 +32,6 @@ class CameraStream(object): #camerastream class definition
             (grabbed, frame) = self.stream.read()
             self.read_lock.acquire()
             self.grabbed, self.frame = grabbed, frame
-            #time.sleep(self.FPS) #limits the amount of frames being constantly grabbed from the camera because although its on a seperate thread, it doesnt need to be exhausted (doesnt limit fps but limits amount of work done)
             self.read_lock.release()
 
     def read(self): #runs like every millisecond cause it runs in the generator function in app.py so yea basically updates the frame each time its run

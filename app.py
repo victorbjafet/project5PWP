@@ -3,18 +3,12 @@ from robotLibrary import Robot #import custom made robotLib class for abstractio
 from camera import CameraStream #imports "camerastream" class from 'camera.py' file located in the same dir as this app.py file
 import cv2 #opencv import
 
-import logging #temp
-
 
 app = Flask(__name__) #initialize flask object instance
 robot = Robot() #initialize robot class instance
 cap = CameraStream().start() #initialize camerastream object instance from other file
 
 #flask run --host=0.0.0.0
-
-
-#streaming terminal output temp
-logging.basicConfig(filename='static/logFile.txt', level=logging.DEBUG, filemode = 'w')
 
 
 
@@ -25,11 +19,6 @@ def forward():
     speedL = int(request.args.get('speedL', default = 50))
     speedR = int(request.args.get('speedR', default = 64))
     timeMS = int(request.args.get('timeMS', default = 1000))
-    if request.environ.get('HTTP_X_FORWARDED_FOR') is None:
-        print(request.environ['REMOTE_ADDR'])
-    else:
-        print(request.environ['HTTP_X_FORWARDED_FOR']) # if behind a proxy
-    print('f')
     robot.motorForward(speedL, speedR, timeMS)
     return "<p>forward</p>"
 
@@ -39,11 +28,6 @@ def backward():
     speedL = int(request.args.get('speedL', default = 50))
     speedR = int(request.args.get('speedR', default = 66))
     timeMS = int(request.args.get('timeMS', default = 1000))
-    if request.environ.get('HTTP_X_FORWARDED_FOR') is None:
-        print(request.environ['REMOTE_ADDR'])
-    else:
-        print(request.environ['HTTP_X_FORWARDED_FOR']) # if behind a proxy
-    print('b')
     robot.motorBackward(speedL, speedR, timeMS)
     return "<p>backward</p>"
 
@@ -52,11 +36,6 @@ def left():
     speedL = int(request.args.get('speedL', default = 50))
     speedR = int(request.args.get('speedR', default = 60))
     timeMS = int(request.args.get('timeMS', default = 850)) 
-    if request.environ.get('HTTP_X_FORWARDED_FOR') is None:
-        print(request.environ['REMOTE_ADDR'])
-    else:
-        print(request.environ['HTTP_X_FORWARDED_FOR']) # if behind a proxy
-    print('l')
     robot.motorLeft(speedL, speedR, timeMS)
     return "<p>left</p>"
 
@@ -65,11 +44,6 @@ def right():
     speedL = int(request.args.get('speedL', default = 50))
     speedR = int(request.args.get('speedR', default = 60))
     timeMS = int(request.args.get('timeMS', default = 850))
-    if request.environ.get('HTTP_X_FORWARDED_FOR') is None:
-        print(request.environ['REMOTE_ADDR'])
-    else:
-        print(request.environ['HTTP_X_FORWARDED_FOR']) # if behind a proxy
-    print('r')
     robot.motorRight(speedL, speedR, timeMS)
     return "<p>right</p>"
 
